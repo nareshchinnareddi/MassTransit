@@ -3,10 +3,23 @@ using MassTransit.Consumer;
 
 var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
 {
-    cfg.ReceiveEndpoint("order-created-event", e =>
+    cfg.ReceiveEndpoint("order_archive", e =>
     {
-        e.Consumer<OrderCreatedConsumer>();
+        e.Consumer<OrderArchiveConsumer>();
     });
+    cfg.ReceiveEndpoint("order_billing", e =>
+    {
+        e.Consumer<OrderBillingConsumer>();
+    });
+    cfg.ReceiveEndpoint("order_printer", e =>
+    {
+        e.Consumer<OrderPrinterConsumer>();
+    });
+    cfg.ReceiveEndpoint("order_tracking", e =>
+    {
+        e.Consumer<OrderTrackingConsumer>();
+    });
+
 });
 
 await busControl.StartAsync(new CancellationToken());
