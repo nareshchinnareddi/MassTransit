@@ -1,0 +1,12 @@
+D:\MassTransit\MassTransit\MassTransit.SharedModels\bin\Debug\net6.0\MassTransit.SharedModels.deps.json
+D:\MassTransit\MassTransit\MassTransit.SharedModels\bin\Debug\net6.0\MassTransit.SharedModels.dll
+D:\MassTransit\MassTransit\MassTransit.SharedModels\bin\Debug\net6.0\MassTransit.SharedModels.pdb
+D:\MassTransit\MassTransit\MassTransit.SharedModels\obj\Debug\net6.0\MassTransit.SharedModels.csproj.AssemblyReference.cache
+D:\MassTransit\MassTransit\MassTransit.SharedModels\obj\Debug\net6.0\MassTransit.SharedModels.GeneratedMSBuildEditorConfig.editorconfig
+D:\MassTransit\MassTransit\MassTransit.SharedModels\obj\Debug\net6.0\MassTransit.SharedModels.AssemblyInfoInputs.cache
+D:\MassTransit\MassTransit\MassTransit.SharedModels\obj\Debug\net6.0\MassTransit.SharedModels.AssemblyInfo.cs
+D:\MassTransit\MassTransit\MassTransit.SharedModels\obj\Debug\net6.0\MassTransit.SharedModels.csproj.CoreCompileInputs.cache
+D:\MassTransit\MassTransit\MassTransit.SharedModels\obj\Debug\net6.0\MassTransit.SharedModels.dll
+D:\MassTransit\MassTransit\MassTransit.SharedModels\obj\Debug\net6.0\refint\MassTransit.SharedModels.dll
+D:\MassTransit\MassTransit\MassTransit.SharedModels\obj\Debug\net6.0\MassTransit.SharedModels.pdb
+D:\MassTransit\MassTransit\MassTransit.SharedModels\obj\Debug\net6.0\ref\MassTransit.SharedModels.dll
