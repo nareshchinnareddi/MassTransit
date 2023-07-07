@@ -21,9 +21,8 @@ builder.Services.AddMassTransit(mt =>
                                 c.Username(rabbitMqSettings.UserName);
                                 c.Password(rabbitMqSettings.Password);
                             });
-                            cfg.Send<Order>(x => { x.UseRoutingKeyFormatter(context => "order"); });
-                            cfg.Message<Order>(x => x.SetEntityName("order"));
-                            cfg.Publish<Order>(x => { x.ExchangeType = ExchangeType.Topic; });
+                            cfg.Message<Order>(x => { x.SetEntityName("order"); });
+                            cfg.Publish<Order>(x => { x.ExchangeType = ExchangeType.Direct; x.Exclude = true; });
                         }));
 
 var app = builder.Build();

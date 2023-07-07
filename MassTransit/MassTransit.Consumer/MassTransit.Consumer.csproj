@@ -6,11 +6,24 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MassTransit" Version="8.0.16"/>
-    <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.16"/>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+    <None Remove="appsettings.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MassTransit.SharedModels\MassTransit.SharedModels.csproj"/>
+    <EmbeddedResource Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MassTransit" Version="8.0.16" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.16" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MassTransit.SharedModels\MassTransit.SharedModels.csproj" />
   </ItemGroup>
 </Project>
