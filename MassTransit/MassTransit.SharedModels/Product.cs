@@ -1,5 +1,5 @@
 ﻿namespace MassTransit.SharedModels;
-public interface Order
+public interface Product
 {
     Guid Id { get; set; }
     string ProductName { get; set; }

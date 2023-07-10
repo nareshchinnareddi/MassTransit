@@ -12,19 +12,13 @@ namespace MassTransitRabbitMQ.Controllers;
 public class OrdersController : ControllerBase
 {
     private readonly IPublishEndpoint _publishEndpoint;
-    private readonly ISendEndpointProvider _sendEndpointProvider;
-    private readonly IBus _bus;
-    private readonly IOptions<EndpointConfig> _endpointConfig;
-    public OrdersController(IPublishEndpoint publishEndpoint, ISendEndpointProvider sendEndpointProvider, IBus bus, IOptions<EndpointConfig> endpointConfig)
+    public OrdersController(IPublishEndpoint publishEndpoint)
     {
         _publishEndpoint = publishEndpoint;
-        _sendEndpointProvider = sendEndpointProvider;
-        _bus = bus;
-        _endpointConfig = endpointConfig;
     }
 
-    [HttpPost("order_printer")]
-    public async Task<IActionResult> OrderPrinter(OrderDto orderDto)
+    [HttpPost]
+    public async Task<IActionResult> Order(OrderDto orderDto)
     {
         await _publishEndpoint.Publish<Order>(new
         {
@@ -32,21 +26,21 @@ public class OrdersController : ControllerBase
             orderDto.ProductName,
             orderDto.Quantity,
             orderDto.Price
-        }, x => { x.SetRoutingKey("printer"); });
-
+        });
+        //}, x => { x.SetRoutingKey(orderDto.ProductName); x.DestinationAddress = new Uri("exchange:order"); });
         return Ok();
     }
 
-    [HttpPost("order_archive")]
-    public async Task<IActionResult> OrderArchive(OrderDto orderDto)
+    [HttpPost("Product")]
+    public async Task<IActionResult> Product(OrderDto orderDto)
     {
-        await _publishEndpoint.Publish<Order>(new
+        await _publishEndpoint.Publish<Product>(new
         {
-            Id = 2,
+            Id = 1,
             orderDto.ProductName,
             orderDto.Quantity,
             orderDto.Price
-        }, x => { x.SetRoutingKey("archive"); });
+        }, x => { x.SetRoutingKey(orderDto.ProductName); });
         return Ok();
     }
 }

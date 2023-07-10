@@ -1,6 +1,7 @@
 using MassTransit;
 using MassTransit.SharedModels;
 using MassTransit.Testing;
+using MassTransitRabbitMQ;
 using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,13 +17,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMassTransit(mt =>
                         mt.UsingRabbitMq((cntxt, cfg) =>
                         {
-                            cfg.Host(rabbitMqSettings.Uri, "/", c =>
+                            cfg.Host(rabbitMqSettings.Uri, rabbitMqSettings.VHost, c =>
                             {
                                 c.Username(rabbitMqSettings.UserName);
                                 c.Password(rabbitMqSettings.Password);
                             });
-                            cfg.Message<Order>(x => { x.SetEntityName("order"); });
-                            cfg.Publish<Order>(x => { x.ExchangeType = ExchangeType.Direct; x.Exclude = true; });
+                            cfg.ConfigureMessageTopology();
                         }));
 
 var app = builder.Build();
