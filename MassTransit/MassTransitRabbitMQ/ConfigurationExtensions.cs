@@ -6,7 +6,7 @@ namespace MassTransitRabbitMQ
 {
     public static class ConfigurationExtensions
     {
-        public static void ConfigureMessageTopology(this IRabbitMqBusFactoryConfigurator configurator)
+        public static void ConfigureMessageTopologyOne(this IRabbitMqBusFactoryConfigurator configurator)
         {
             configurator.Message<Order>(x => { x.SetEntityName("order"); });
             configurator.Send<Order>(x =>
@@ -19,7 +19,9 @@ namespace MassTransitRabbitMQ
             {
                 x.ExchangeType = ExchangeType.Direct;
             });
-
+        }
+        public static void ConfigureMessageTopologyTwo(this IRabbitMqBusFactoryConfigurator configurator)
+        {
             //configurator.Message<Product>(x => { x.SetEntityName("product"); });
             //configurator.Send<Product>(x =>
             //{

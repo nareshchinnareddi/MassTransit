@@ -10,13 +10,14 @@ IConfiguration Configuration = new ConfigurationBuilder()
     .AddCommandLine(args)
     .Build();
 
-var rabbitMqSettings = Configuration.GetSection(nameof(RabbitMqSettings)).Get<RabbitMqSettings>();
-var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
+var rabbitMqSettingsOne = Configuration.GetSection("RabbitMqSettingsOne").Get<RabbitMqSettings>();
+var rabbitMqSettingsTwo = Configuration.GetSection("RabbitMqSettingsTwo").Get<RabbitMqSettings>();
+var busOneControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
 {
-    cfg.Host(rabbitMqSettings.Uri, rabbitMqSettings.VHost, c =>
+    cfg.Host(rabbitMqSettingsOne.Uri, rabbitMqSettingsOne.VHost, c =>
     {
-        c.Username(rabbitMqSettings.UserName);
-        c.Password(rabbitMqSettings.Password);
+        c.Username(rabbitMqSettingsOne.UserName);
+        c.Password(rabbitMqSettingsOne.Password);
     });
     cfg.ReceiveEndpoint("order_archive", e =>
     {
@@ -37,6 +38,14 @@ var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
             x.ExchangeType = ExchangeType.Direct;
         });
         e.ConfigureConsumeTopology = false;
+    });
+});
+var busTwoControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
+{
+    cfg.Host(rabbitMqSettingsTwo.Uri, rabbitMqSettingsTwo.VHost, c =>
+    {
+        c.Username(rabbitMqSettingsTwo.UserName);
+        c.Password(rabbitMqSettingsTwo.Password);
     });
     cfg.ReceiveEndpoint("product_archive", e =>
     {
@@ -60,7 +69,8 @@ var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
     });
 });
 
-await busControl.StartAsync(new CancellationToken());
+await busOneControl.StartAsync(new CancellationToken());
+await busTwoControl.StartAsync(new CancellationToken());
 try
 {
     Console.WriteLine("Press enter to exit");
@@ -68,5 +78,6 @@ try
 }
 finally
 {
-    await busControl.StopAsync();
+    await busOneControl.StopAsync();
+    await busTwoControl.StopAsync();
 }
